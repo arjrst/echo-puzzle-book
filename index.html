@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Nigar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@700&family=Cinzel:wght@500;600;700&family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="titlebar" aria-label="Window controls">
+            <div class="window-controls">
+                <button id="min-btn" class="ctrl-btn" aria-label="Minimize window" title="Minimize"><span class="min-icon" aria-hidden="true"></span></button>
+                <button id="max-btn" class="ctrl-btn" aria-label="Maximize window" title="Maximize"><span class="max-icon" aria-hidden="true"></span></button>
+                <button id="close-btn" class="ctrl-btn close" aria-label="Close window" title="Close"><span class="close-icon" aria-hidden="true"></span></button>
+            </div>
+        </header>
+
+        <main class="stage">
+            <div class="book-container" id="book">
+                <div class="spread">
+                    <!-- Static Left Page (Dedication) -->
+                    <div class="page left-page" style="z-index: 1;">
+                        <div class="page-content">
+                            <p class="dedication-note">With love,<br><span class="signature-name">from ... </span></p>
+                        </div>
+                    </div>
+
+                    <!-- Static Right Page: Harry Potter Crossword Page -->
+                    <div class="page right-page-hp" style="z-index: 1;">
+                        <div class="page-content crossword-container">
+                            <h2 class="hp-title">Harry Potter</h2>
+                            
+                            <!-- Harry Potter Crossword Grid Matrix (Injected by JS) -->
+                            <div class="crossword-grid" id="crossword-board"></div>
+
+                            <!-- Clues Section -->
+                            <div class="cw-clues">
+                                <div class="clue-col">
+                                    <strong>По горизонтали:</strong>
+                                    <ol>
+                                        <li value="4">Непростительное заклятие, от которого у Гарри остался шрам.</li>
+                                        <li value="5">Атрибут Пожирателя Смерти, скрывающий лицо.</li>
+                                        <li value="6">Магическая чаша для просмотра воспоминаний.</li>
+                                        <li value="7">Профессор зельеварения, Принц-полукровка.</li>
+                                    </ol>
+                                </div>
+                                <div class="clue-col">
+                                    <strong>По вертикали:</strong>
+                                    <ol>
+                                        <li value="1">Школа чародейства и волшебства.</li>
+                                        <li value="2">Верный феникс Альбуса Дамблдора.</li>
+                                        <li value="3">Свирепое существо из первого испытания Турнира Трех Волшебников.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crossword-success hp-success-message" id="crossword-success" aria-live="polite">
+                            Mischief managed<br>
+                            <span>The magic continues</span>
+                        </div>
+                    </div>
+
+                    <!-- The Turning Page (Sudoku front, Poster back) -->
+                    <div class="flipper" id="page1-flipper">
+                        <div class="flipper-front right-page">
+                            <div class="page-content">
+                                <h2 class="sudoku-title">Solve to unroll the canvas...</h2>
+                                <div class="sudoku-board" id="board"></div>
+                                
+                                <div class="sudoku-instructions" id="instructions">
+                                    * Type number on the grid<br>
+                                    * Backspace for delete<br>
+                                    * Tab for next cell<br>
+                                    * Overwrite the existing number<br>
+                                </div>
+                                <div class="sudoku-error" id="error-message" style="display: none;">
+                                    Think more...
+                                </div>
+                                <div class="sudoku-success" id="success-message" style="display: none;">
+                                    I knew you can do it!<br>
+                                    <span>Now flip to the next page</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flipper-back" style="background-image: url('harry_potter.png'); background-size: cover; background-position: center top;">
+                        </div>
+                    </div>
+
+                    <!-- The next spread revealed after the crossword. -->
+                    <div class="next-spread" id="twilight-spread">
+                        <div class="page twilight-left-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="page twilight-right-page">
+                            <div class="page-content twilight-crossword-container">
+                                <h2 class="twilight-title">Twilight</h2>
+
+                                <div class="twilight-crossword-grid" id="twilight-crossword-board">
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Э"><span class="tw-cw-num">1</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="К"><span class="tw-cw-num">2</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="В"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="И"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Л"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Е"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Т"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="М"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Е"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Д"><span class="tw-cw-num">3</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="И"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Й"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Ж"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Л"><span class="tw-cw-num">4</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="О"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Р"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="А"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Н"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div>
+                                    <div class="tw-cw-cell" data-answer="В"><span class="tw-cw-num">5</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="О"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Л"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Ь"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Т"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Е"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Р"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="А"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="И"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Н"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="П"><span class="tw-cw-num">6</span><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="О"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell" data-answer="Л"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="К"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="У"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                    <div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="С"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell" data-answer="Ш"><input type="text" maxlength="1" class="tw-cw-input" spellcheck="false"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div><div class="tw-cw-cell tw-cw-empty"></div>
+                                </div>
+
+                                <div class="twilight-cw-clues">
+                                    <div class="twilight-clue-col">
+                                        <strong>По горизонтали:</strong>
+                                        <ol>
+                                            <li value="2">Коренное племя, чьи мужчины способны обращаться в волков.</li>
+                                            <li value="4">Кто едва не убил Беллу в лесу в отсутствие Эдварда в «Новолунии»?</li>
+                                            <li value="5">Город, куда Белла отправилась сломя голову, чтобы спасти Эдварда на площади в день фестиваля.</li>
+                                            <li value="6">В какого волка врезалась Белла в ярости, узнав об импринтинге на Ренесми?</li>
+                                        </ol>
+                                    </div>
+                                    <div class="twilight-clue-col">
+                                        <strong>По вертикали:</strong>
+                                        <ol>
+                                            <li value="1">Невеста Сэма Улая со шрамом на лице от волчьих когтей.</li>
+                                            <li value="2">Член клана Денали, обладающая способностью создавать электрический разряд.</li>
+                                            <li value="3">Человек-юрист и подпольный фальшивомонетчик, к которому обращался за документами клан Калленов.</li>
+                                            <li value="4">Резервация на побережье, где волки защищают свои границы.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crossword-success twilight-crossword-success" id="twilight-crossword-success" aria-live="polite">
+                                spider monkeyyy<br>
+                                <span>let's go hunt</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The crossword success page turns to reveal the Twilight spread. -->
+                    <div class="flipper page2-flipper" id="page2-flipper">
+                        <div class="flipper-front crossword-turn-front">
+                            <div class="crossword-turn-message hp-turn-message">
+                                Mischief managed<br>
+                                <span>The magic continues</span>
+                            </div>
+                        </div>
+                        <div class="flipper-back twilight-turn-back"></div>
+                    </div>
+
+                    <!-- The Matrix spread revealed after the Twilight crossword. -->
+                    <div class="next-spread matrix-spread" id="matrix-spread">
+                        <div class="page matrix-left-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="page matrix-right-page">
+                            <div class="page-content matrix-crossword-container">
+                                <h2 class="twilight-title matrix-title">Matrix</h2>
+                                <div class="matrix-crossword-grid" id="matrix-crossword-board"></div>
+
+                                <div class="matrix-cw-clues">
+                                    <div class="matrix-clue-col">
+                                        <strong>По горизонтали:</strong>
+                                        <ol>
+                                            <li value="1">Название легендарного корабля Морфеуса, отсылающее к библейскому царю Вавилона.</li>
+                                            <li value="6">Создатель математической формулы Матрицы и отец всех системных аномалий.</li>
+                                            <li value="7">Опасный информационный брокер («Француз»), контролирующий подпольный мир изгнанных программ.</li>
+                                            <li value="8">Белое виртуальное пространство для загрузки оружия, информации и тренировок.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="matrix-clue-col">
+                                        <strong>По вертикали:</strong>
+                                        <ol>
+                                            <li value="2">Аномалия в уравнении Матрицы, наделенная способностью управлять кодом системы.</li>
+                                            <li value="3">Программа интуитивного типа, которая печет печенье и знает исход любого выбора.</li>
+                                            <li value="4">Бывший агент безопасности системы, переродившийся в неукротимый компьютерный вирус.</li>
+                                            <li value="5">Последний подземный бастион человечества, укрытый глубоко у ядра планеты.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crossword-success matrix-crossword-success" id="matrix-crossword-success" aria-live="polite">
+                                Free your mind<br>
+                                <span>Now the path is open...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Twilight success page turns to reveal the Matrix spread. -->
+                    <div class="flipper page3-flipper" id="page3-flipper">
+                        <div class="flipper-front twilight-turn-front">
+                            <div class="crossword-turn-message twilight-turn-message">
+                                spider monkeyyy<br>
+                                <span>let's go hunt</span>
+                            </div>
+                        </div>
+                        <div class="flipper-back matrix-turn-back"></div>
+                    </div>
+
+                    <!-- The Game of Thrones spread revealed after the Matrix crossword. -->
+                    <div class="next-spread got-spread" id="got-spread">
+                        <div class="page got-left-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="page got-right-page">
+                            <div class="page-content got-crossword-container">
+                                <h2 class="got-title">Game of Thrones</h2>
+                                <div class="got-crossword-grid" id="got-crossword-board"></div>
+
+                                <div class="got-cw-clues">
+                                    <div class="got-clue-col">
+                                        <strong>По горизонтали:</strong>
+                                        <ol>
+                                            <li value="1">Валирийская команда, заставляющая дракона изрыгать пламя.</li>
+                                            <li value="6">Огромный хищный зверь и гербовый символ дома Старков.</li>
+                                            <li value="7">Суровый мореплавающий народ с Железных Островов, чей девиз «Мы не сеем».</li>
+                                            <li value="8">Красная жрица Владыки Света, чья вера и магия изменили исход войны.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="got-clue-col">
+                                        <strong>По вертикали:</strong>
+                                        <ol>
+                                            <li value="2">Легендарный исполинский дракон Эйгона Завоевателя по прозвищу Черный Ужас.</li>
+                                            <li value="3">Скрытый в туманах Вольный Город, знаменитый Железным Банком и Безликими.</li>
+                                            <li value="4">Воскрешенный Белыми Ходоками мертвец, сражающийся в их армии.</li>
+                                            <li value="5">Преданный великан, чьё единственное слово стало его именем и проклятием.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crossword-success got-crossword-success" id="got-crossword-success" aria-live="polite">
+                                Fire and Blood<br>
+                                <span>The final page has been claimed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Matrix success page turns to reveal the Game of Thrones spread. -->
+                    <div class="flipper page4-flipper" id="page4-flipper">
+                        <div class="flipper-front matrix-turn-front">
+                            <div class="crossword-turn-message matrix-turn-message">
+                                Free your mind<br>
+                                <span>Now the path is open...</span>
+                            </div>
+                        </div>
+                        <div class="flipper-back got-turn-back"></div>
+                    </div>
+
+                    <!-- The Back to the Future spread revealed after the Game of Thrones crossword. -->
+                    <div class="next-spread bttf-spread" id="bttf-spread">
+                        <div class="page bttf-left-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="page bttf-right-page">
+                            <div class="page-content bttf-crossword-container">
+                                <h2 class="bttf-title">Back to the Future</h2>
+                                <div class="bttf-crossword-grid" id="bttf-crossword-board"></div>
+
+                                <div class="bttf-cw-clues">
+                                    <div class="bttf-clue-col">
+                                        <strong>По горизонтали:</strong>
+                                        <ol>
+                                            <li value="1">Марка культового спортивного автомобиля, который Док превратил в машину времени.</li>
+                                            <li value="6">Редкий радиоактивный элемент, добытый Доком у ливийских террористов для питания первого прыжка во времени.</li>
+                                            <li value="7">Родной город героев, название которого иронично переводится как «Долина холмов» (хотя холмов там нет).</li>
+                                            <li value="8">Послание из 1885 года, которое Западный Союз бережно хранил 70 лет, чтобы передать Марти.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="bttf-clue-col">
+                                        <strong>По вертикали:</strong>
+                                        <ol>
+                                            <li value="2">Имя чудаковатого профессора Брауна, изменившего ход истории.</li>
+                                            <li value="3">Главный антагонист и хулиган, чья фамилия неизменно портит жизнь семье МакФлай в любой из временных шкал.</li>
+                                            <li value="4">Городская достопримечательность, куда должна ударить молния в 10:04, чтобы отправить Марти обратно в будущее.</li>
+                                            <li value="5">Путешественник во времени, случайно застрявший в 1955 году и заставивший собственных родителей влюбиться.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crossword-success bttf-crossword-success" id="bttf-crossword-success" aria-live="polite">
+                                story complete<br>
+                                <span>the future is open</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Game of Thrones success page turns to reveal Back to the Future. -->
+                    <div class="flipper page5-flipper" id="page5-flipper">
+                        <div class="flipper-front got-turn-front">
+                            <div class="crossword-turn-message got-turn-message">
+                                Fire and Blood<br>
+                                <span>The final page has been claimed</span>
+                            </div>
+                        </div>
+                        <div class="flipper-back bttf-turn-back"></div>
+                    </div>
+
+                    <!-- The final black spread revealed after the Back to the Future crossword. -->
+                    <div class="next-spread final-spread" id="final-spread">
+                        <div class="page final-left-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="page final-right-page">
+                            <div class="page-content"></div>
+                        </div>
+                        <div class="heart-puzzle-stage" id="heart-puzzle-stage">
+                            <div class="heart-puzzle-board" id="heart-puzzle-board" aria-label="Heart puzzle"></div>
+                        </div>
+                        <div class="final-love-message" id="final-love-message" aria-live="polite">
+                            <div class="final-heart-badge" aria-hidden="true"></div>
+                            <div class="final-love-copy">
+                                i love you so much bunnyyy<br>
+                                <span>keep it up</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Back to the Future success page turns to reveal the final puzzle. -->
+                    <div class="flipper page6-flipper" id="page6-flipper">
+                        <div class="flipper-front bttf-turn-front">
+                            <div class="crossword-turn-message bttf-turn-message">
+                                story complete<br>
+                                <span>the future is open</span>
+                            </div>
+                        </div>
+                        <div class="flipper-back final-turn-back"></div>
+                    </div>
+                </div>
+
+                <div class="cover" id="cover">
+                    <input type="text" id="name-input" placeholder="Type Your Name" autocomplete="off" spellcheck="false">
+                    <div id="continue-btn" class="continue-btn">Continue to Solve ➔</div>
+                    <div id="start-again-btn" class="start-again-btn">Start Again</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

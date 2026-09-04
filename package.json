@@ -1,0 +1,20 @@
+{
+  "name": "echo-puzzlebook",
+  "productName": "Echo Puzzle Book",
+  "version": "1.0.0",
+  "description": "Interactive 3D BL Sudoku Notebook",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "win": {
+      "icon": "icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.1.1",
+    "electron-builder": "^26.15.3"
+  }
+}
