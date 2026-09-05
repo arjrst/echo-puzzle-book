@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path'); // Make sure this is at the top
+const path = require('path'); 
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -10,7 +10,7 @@ function createWindow() {
         transparent: true,
         backgroundColor: '#00000000',
         resizable: false,
-        icon: path.join(__dirname, 'icon.ico'), // <-- ADD THIS LINE HERE
+        icon: path.join(__dirname, 'icon.ico'), 
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
