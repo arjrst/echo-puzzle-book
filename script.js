@@ -313,10 +313,8 @@ function turnPage5() {
     bookState = 'turning-page5';
     gotCrosswordSuccess.style.display = 'none';
     
-    // 1. Make the spread visible immediately so the right side (crossword) shows BTTF colors
     bttfSpread.classList.add('visible');
     
-    // 2. Hide the left side (BTTF poster) temporarily so the GoT poster stays visible under the flip
     const bttfLeftPage = bttfSpread.querySelector('.bttf-left-page');
     bttfLeftPage.style.visibility = 'hidden';
     
@@ -325,7 +323,6 @@ function turnPage5() {
     page5Flipper.classList.add('turned');
 
     transitionTimer = window.setTimeout(() => {
-        // 3. Restore the BTTF poster once the page lands
         bttfLeftPage.style.visibility = 'visible';
         bookState = 'page5-turned';
         transitionTimer = null;
@@ -339,7 +336,7 @@ function turnPage5Back() {
     rememberResumePage(4);
     bookState = 'turning-page5-back';
     
-    // 1. Hide the BTTF poster instantly as the flipper lifts, revealing the GoT poster beneath
+   
     const bttfLeftPage = bttfSpread.querySelector('.bttf-left-page');
     bttfLeftPage.style.visibility = 'hidden';
     
@@ -347,7 +344,7 @@ function turnPage5Back() {
 
     transitionTimer = window.setTimeout(() => {
         bttfSpread.classList.remove('visible');
-        bttfLeftPage.style.visibility = ''; // Reset visibility for next time
+        bttfLeftPage.style.visibility = ''; 
         page5Flipper.classList.remove('ready');
         gotCrosswordSuccess.style.display = 'flex';
         bookState = 'page4-turned';
