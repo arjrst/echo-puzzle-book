@@ -1,4 +1,3 @@
-const { ipcRenderer } = require('electron');
 
 const book = document.getElementById('book');
 const cover = document.getElementById('cover');
@@ -86,7 +85,7 @@ book.addEventListener('pointerdown', (event) => {
         return;
     }
 
-    const [windowX, windowY] = ipcRenderer.sendSync('window-get-position-sync');
+    const [windowX, windowY] = window.windowControls.getPosition();
     dragState = {
         startX: event.screenX,
         startY: event.screenY,
@@ -107,7 +106,7 @@ book.addEventListener('pointermove', (event) => {
     }
 
     if (dragState.moved) {
-        ipcRenderer.send('window-set-position', dragState.windowX + deltaX, dragState.windowY + deltaY);
+        window.windowControls.setPosition(dragState.windowX + deltaX, dragState.windowY + deltaY);
     }
 });
 
@@ -390,9 +389,9 @@ function turnPage6Back() {
     }, OPEN_TRANSITION_MS);
 }
 
-document.getElementById('min-btn').addEventListener('click', () => ipcRenderer.send('window-minimize'));
-document.getElementById('max-btn').addEventListener('click', () => ipcRenderer.send('window-maximize'));
-document.getElementById('close-btn').addEventListener('click', () => ipcRenderer.send('window-close'));
+document.getElementById('min-btn').addEventListener('click', () => window.windowControls.minimize());
+document.getElementById('max-btn').addEventListener('click', () => window.windowControls.maximize());
+document.getElementById('close-btn').addEventListener('click', () => window.windowControls.close());
 
 book.addEventListener('click', (event) => {
     if (book.dataset.preventClick === 'true' || isInteractiveTarget(event.target)) {
